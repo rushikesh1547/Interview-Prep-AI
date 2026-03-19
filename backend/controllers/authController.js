@@ -49,6 +49,31 @@ const registerUser = async (req, res) => {
 //@route  POST /api/auth/login
 //@access Public
 const loginUser = async (req, res) => {
+    try{
+        const {email, password} = req.body;
+
+        const user = await User.findOne({email});
+        if(!user){
+            return res.status(500).json({message: "Invalid email or password"});
+        }
+
+        //compare password
+        const isMatch = await bcrypt.compare(password, user.password);
+        if(!isMatch){
+            return res.status(500).json({message: "Invalid email or password"});
+        }
+
+        //Return User data with JWT
+        res.json({
+            _id: user._id,
+            name: user.name,
+            email: user.email,
+            profileImageUrl: user.profileImageUrl,
+            token: generateToken(user._id),
+        });
+    } catch (error) {
+        res.status(500).json({message: "Server Error", error: error.message});
+    }
 };
 
 //@desc   Get user profile
