@@ -3,7 +3,7 @@ const questionAnswerPrompt = (role, experience, topicsToFocus, numberOfQuestions
    
    Task: 
    -Role: ${role}
-   -Candidate Experience: ${experience}
+   -Candidate Experience: ${experience} years
    -Focus Topics: ${topicsToFocus}
    -Write ${numberOfQuestions} interview questions.
    -For each question, generate a detailed but beginner-friendly answer.
@@ -11,14 +11,14 @@ const questionAnswerPrompt = (role, experience, topicsToFocus, numberOfQuestions
    -Keep formatting very clean.
    -Return a pure JSON array like:
    [
-   
    {
    "question": "Question here?",
    "answer": "Answer here."
    },
    ...
-]
-Important: Do not add any extra test. Only return valid JSON.`)
+   ]
+    Important: Do not add any extra test. Only return valid JSON.
+ `)
 
 const conceptExplainPrompt = (question) => `
     You are an AI trained to generate explanations for a given interview question.
@@ -26,7 +26,7 @@ const conceptExplainPrompt = (question) => `
     Task:
 
     -Explain the following interview question and its concept in depth as if you're teaching a beginner developer.
-    -Question: ${question}
+    -Question:" ${question}"
     -After the explanation, provide a short and clear title that summarizes the concept for the article or page header.
     -Keep the formatting very clean and clear.
     -Return the result as a valid JSON object in the following format :
@@ -39,4 +39,4 @@ const conceptExplainPrompt = (question) => `
     Important: Do NOT add any extra test outside the JSON format. Only return valid JSON.
     `;
 
-module.exports = {questionAnswerPrompt, conceptExplainPrompt}
+module.exports = {questionAnswerPrompt, conceptExplainPrompt};
