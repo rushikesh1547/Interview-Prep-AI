@@ -10,6 +10,9 @@ const sessionRoutes = require("./routes/sessionRoutes");
 const questionRoutes = require("./routes/questionRoutes");
 const {protect} = require("./middlewares/authMiddleware");
 
+const generateInterviewQuestions = require("./controllers/aiController");
+const generateConceptExplanation = require("./controllers/aiController");
+
 const app = express();
 
 //Middleware to handel CORS
