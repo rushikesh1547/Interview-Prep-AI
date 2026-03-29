@@ -93,7 +93,7 @@ const QuestionCard = ({
         >
             <div 
             ref={contentRef}
-            className="text-gray-600 bg-gray-50 px-5 py-3 rounded-lg"
+            className="text-gray-400 bg-gray-50 px-5 py-3 rounded-lg"
             >
 
                 <AIResponsePreview content={answer}/>
@@ -104,5 +104,7 @@ const QuestionCard = ({
     </div>
     </>
 }
+
+
 
 export default QuestionCard
