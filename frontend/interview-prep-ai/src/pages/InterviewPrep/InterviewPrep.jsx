@@ -12,6 +12,7 @@ import { API_PATHS } from '../../utils/apiPaths';
 import QuestionCard from '../../components/Cards/QuestionCard';
 import AIResponsePreview from './components/AIResponsePreview';
 import Drawer from '../../components/Drawer';
+import SkeletonLoader from '../../components/Loader/SkeletonLoader';
 
 const InterviewPrep = () => {
 
@@ -80,7 +81,7 @@ const InterviewPrep = () => {
       console.log(response);
 
       if(response.data && response.data.question){
-        // toast.success('Question Pinned Successfully')
+        toast.success('Question Pinned Successfully')
         fetchSessionDetailsById();
       }
     } catch (error) {
