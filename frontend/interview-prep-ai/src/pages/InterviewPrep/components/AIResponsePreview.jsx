@@ -10,7 +10,7 @@ const AIResponsePreview = ({content}) => {
     if(!content) return null;
     return (
         <div className="max-w-4xl mx-auto">
-            <div className="text-[14px] prose prose:slate dark:prose invert max-w-none">
+            <div className="text-[14px] prose prose-slate dark:prose-invert max-w-none ">
                 <ReactMarkdown
                 remarkPlugins={[remarkGfm]}
                 components={{
@@ -149,7 +149,7 @@ function CodeBlock({code, language}){
         <SyntaxHighlighter
             language={language}
             style={oneLight}
-           customStyle={{fontSize:12.5, margine: 0, padding: "1rem", background:"transparent" }}
+           customStyle={{fontSize:12.5, margin: 0, padding: "1rem", background:"f9fafb" }}
         >
             {code}
         </SyntaxHighlighter>
