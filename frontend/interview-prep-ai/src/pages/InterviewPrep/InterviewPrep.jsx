@@ -90,7 +90,46 @@ const InterviewPrep = () => {
   };
 
   //Add more questions to a session
-  const uploadMoreQuestions = async () => {};
+  const uploadMoreQuestions = async () => {
+    try {
+      setIsUpdateLoader(true); 
+
+      //Call AI API to generate questions
+      const aiResponse = await axiosInstance.post(
+        API_PATHS.AI.GENERATE_QUESTIONS,
+        {
+          role: sessionData?.role,
+          experience: sessionData?.experience,
+          topicsToFocus: sessionData?.topicsToFocus,
+          numberOfQuestions: 10, //You can make this dynamic based on your needs
+        }
+      ); 
+
+      //Should be array like [{question: "", answer: ""}, ...]
+      const generatedQuestions = aiResponse.data;
+
+      const response = await axiosInstance.post(
+        API_PATHS.QUESTION.ADD_TO_SESSION,
+        {
+          sessionId,
+          questions: generatedQuestions,
+        }
+      );
+
+      if(response.data){
+        toast.success('Added more Q&A!!');
+        fetchSessionDetailsById();
+      }
+    } catch (error) {
+      if(error.response && error.response.data && error.response.data.message){
+        setError(error.response.data.message);
+      }else{
+        setError("Something went wrong. Please try again.");
+      }
+    }finally{
+      setIsUpdateLoader(false);
+    }
+  };
 
   useEffect(() => {
     if(sessionId){
@@ -130,7 +169,7 @@ const InterviewPrep = () => {
                   return (
                     <motion.div
                     key={data._id || index}
-                    initial={{ opacity: 0 , y: 20}}
+                    initial={{ opacity: 5 , y: 20}}
                     animate={{ opacity: 1 , y: 0}}
                     exit={{ opacity: 0 ,scale: 0.95}}
                     transition={{ 

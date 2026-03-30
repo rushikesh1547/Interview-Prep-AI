@@ -96,8 +96,7 @@ exports.deleteSession = async (req, res) => {
         await Question.deleteMany({session: session._id});
 
         //Then, delete the session
-        await Session.deleteOne();
-
+await Session.findByIdAndDelete(req.params.id);
         res.status(200).json({success: true, message: "Session deleted successfully"});
     } catch(error){
         res.status(500).json({success: false, message: "Server Error"});
