@@ -28,19 +28,19 @@ const corsOptions = {
             "http://localhost:5173",
             "http://localhost:3000",
             "https://interview-prep-ai-751t.vercel.app",  // Production frontend
+            "https://interview-prep-ai-git-master-rushikesh1547s-projects.vercel.app",
             process.env.FRONTEND_URL,  // From environment variable
         ].filter(Boolean);
 
-        if (allowedOrigins.includes(origin)) {
+        if (allowedOrigins.includes(origin) || origin.endsWith('.vercel.app')) {
             callback(null, true);
         } else {
             console.error(`CORS blocked origin: ${origin}`);
-            console.log(`Allowed origins: ${allowedOrigins.join(", ")}`);
             callback(new Error("Not allowed by CORS"));
         }
     },
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
+    allowedHeaders: ["Content-Type", "Authorization", "x-forwarded-proto", "x-forwarded-host"],
     credentials: true
 };
 
