@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { LuSparkles } from "react-icons/lu";
 import Modal from "../components/Modal";
 import Login from "./Auth/Login";
-import SignUp from "./Auth/Signup";
+import SignUp from "./Auth/SignUp";
 import { UserContext } from "../context/userContext";
 import { useContext } from "react";
 import ProfileInfoCard from "../components/Cards/ProfileInfoCard";
