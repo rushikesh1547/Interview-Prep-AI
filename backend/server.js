@@ -19,19 +19,27 @@ const app = express();
 //Middleware to handle CORS
 const corsOptions = {
     origin: function (origin, callback) {
+        // Allow requests with no origin (like mobile apps or curl requests)
+        if (!origin) {
+            return callback(null, true);
+        }
+
         const allowedOrigins = [
             "http://localhost:5173",
             "http://localhost:3000",
-            process.env.FRONTEND_URL,
+            "https://interview-prep-ai-751t.vercel.app",  // Production frontend
+            process.env.FRONTEND_URL,  // From environment variable
         ].filter(Boolean);
 
-        if (!origin || allowedOrigins.includes(origin)) {
+        if (allowedOrigins.includes(origin)) {
             callback(null, true);
         } else {
+            console.error(`CORS blocked origin: ${origin}`);
+            console.log(`Allowed origins: ${allowedOrigins.join(", ")}`);
             callback(new Error("Not allowed by CORS"));
         }
     },
-    methods: ["GET", "POST", "PUT", "DELETE"],
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true
 };
