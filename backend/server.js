@@ -50,6 +50,17 @@ app.use(cors(corsOptions));
 
 app.use(express.json());
 
+// Connect to DB on each request BEFORE routes (uses cached connection in serverless)
+app.use(async (req, res, next) => {
+    try {
+        await connectDB();
+        next();
+    } catch (err) {
+        console.error("Database connection failed:", err);
+        res.status(500).json({ message: "Database connection failed" });
+    }
+});
+
 //Routes
 app.use("/api/auth",authRoutes);
 app.use("/api/sessions", sessionRoutes);
@@ -61,17 +72,12 @@ app.use("/api/ai/generate-explanation", protect, generateConceptExplanation);
 //Server upload folder - Note: For production, use cloud storage (AWS S3, etc.)
 app.use("/uploads", express.static(path.join(__dirname, "uploads"), {}));
 
-//Start Server
+//Start Server (for local development)
 const PORT = process.env.PORT || 8000;
 
-const startServer = async () => {
-    try {
-        await connectDB();
-        app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
-    } catch (err) {
-        console.error("Failed to start server:", err);
-        process.exit(1);
-    }
-};
+if (process.env.NODE_ENV !== "production") {
+    app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
+}
 
-startServer();
+// Export for Vercel serverless
+module.exports = app;

@@ -1,8 +1,8 @@
 // API Configuration - supports both development and production
-const isDevelopment = import.meta.env.MODE === 'development' || !import.meta.env.VITE_API_URL;
-export const BASE_URL = isDevelopment 
-    ? "http://localhost:8000" 
-    : (import.meta.env.VITE_API_URL || "https://your-backend-name.vercel.app");
+export const BASE_URL = import.meta.env.VITE_API_URL 
+    || (import.meta.env.MODE === 'production' 
+        ? "https://interview-prep-ai-ruby.vercel.app" 
+        : "http://localhost:8000");
 
 export const API_PATHS = {
     AUTH: {
