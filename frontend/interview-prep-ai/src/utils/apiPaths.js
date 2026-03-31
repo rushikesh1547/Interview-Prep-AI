@@ -1,4 +1,8 @@
-export const BASE_URL = "http://localhost:8000";
+// API Configuration - supports both development and production
+const isDevelopment = import.meta.env.MODE === 'development' || !import.meta.env.VITE_API_URL;
+export const BASE_URL = isDevelopment 
+    ? "http://localhost:8000" 
+    : (import.meta.env.VITE_API_URL || "https://your-backend-name.vercel.app");
 
 export const API_PATHS = {
     AUTH: {
