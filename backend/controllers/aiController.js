@@ -28,7 +28,7 @@ const generateInterviewQuestions = async (req, res) => {
         );
 
         const response = await genAI.models.generateContent({
-            model: "gemini-1.5-flash",
+            model: "gemini-3.1-flash-lite-preview",
             contents: prompt,
         });
 
@@ -67,7 +67,7 @@ const generateConceptExplanation = async (req, res) => {
         const prompt = conceptExplainPrompt(question);
 
         const response = await genAI.models.generateContent({
-            model: "gemini-1.5-flash",
+            model: "gemini-3.1-flash-lite-preview",
             contents: prompt,
         });
 
